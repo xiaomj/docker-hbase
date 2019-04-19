@@ -2,10 +2,10 @@
 
 . /build/config-hbase.sh
 
-apt-get update -y
+yum update -y
 
-apt-get install $minimal_apt_get_args $HBASE_BUILD_PACKAGES
+yum install $minimal_apt_get_args $HBASE_BUILD_PACKAGES $HBASE_BUILD_PACKAGES-devel
 
 cd /opt
 
-curl -SL $HBASE_DIST/$HBASE_VERSION/hbase-$HBASE_VERSION-bin.tar.gz | tar -x -z && mv hbase-${HBASE_VERSION} hbase
+tar zxvf hbase-$HBASE_VERSION-bin.tgz  && mv hbase-${HBASE_VERSION} hbase

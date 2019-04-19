@@ -11,9 +11,9 @@ HBASE_DIST="http://archive.apache.org/dist/hbase"
 # Prevent initramfs updates from trying to run grub and lilo.
 export INITRD=no
 export DEBIAN_FRONTEND=noninteractive
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.201.b09-2.el7_6.x86_64/jre/
 
-minimal_apt_get_args='-y --no-install-recommends'
+minimal_apt_get_args='-y'
 
 
 ## Build time dependencies ##
@@ -27,4 +27,4 @@ HBASE_BUILD_PACKAGES="curl"
 #HBASE_BUILD_PACKAGES="$HBASE_BUILD_PACKAGES "
 
 ## Run time dependencies ##
-HBASE_RUN_PACKAGES="openjdk-8-jre-headless"
+HBASE_RUN_PACKAGES="java-1.8.0-openjdk"

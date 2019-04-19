@@ -16,10 +16,15 @@ Hopefully this can be improved with Docker's newer networking
 but this hasn't been fixed yet.
 
 
+Download Hbase
+--------------
+    
+    $ wget http://mpc-public.oss-cn-hangzhou.aliyuncs.com/hbase-2.1.2-bin.tgz
+
 Build Image
 -----------
 
-    $ docker build -t dajobe/hbase .
+    $ docker build -t hbase .
 
 
 Pull image
@@ -38,16 +43,7 @@ Run HBase
 To run HBase by hand:
 
     $ mkdir data
-    $ id=$(docker run --name=hbase-docker -h hbase-docker -d -v $PWD/data:/data dajobe/hbase)
-
-To run it and adjust the host system's locally by editing
-`/etc/hosts` to alias the DNS hostname 'hbase-docker' to the
-container, use this:
-
-    $ ./start-hbase.sh
-
-This will require you to enter your sudo password to edit the host
-machine's `/etc/hosts` file
+    $ docker run --name=hbase-docker -h hbase-docker -d -v $PWD/data:/data -p 2181:2181 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 -p 16010:16010  hbase
 
 If you want to run multiple hbase dockers on the same host, you can
 give them different hostnames with the '-h' / '--hostname' argument.
@@ -82,15 +78,9 @@ REST server UI
 See HBase Logs
 --------------
 
-If you want to see the latest logs live use:
-
-    $ docker attach $id
-
-Then ^C to detach.
-
 To see all the logs since the HBase server started, use:
 
-    $ docker logs $id
+    $ docker logs hbase-docker
 
 and ^C to detach again.
 
@@ -129,7 +119,7 @@ use `pip install --user happybase` to get it just for me)
 Test HBase is working from Java
 -------------------------------
 
-    $ docker run --rm -it --link $id:hbase-docker dajobe/hbase hbase shell
+    $ docker exec -it hbase-docker hbase shell
 	HBase Shell
 	Use "help" to get list of supported commands.
 	Use "exit" to quit this interactive shell.
@@ -183,10 +173,6 @@ The bottom line, you can use these URLs to see what's going on:
 to see what's going on in the container and since both your local
 machine and the container are using localhost (aka 127.0.0.1), even
 the links work!
-
-
-
-
 
 Notes
 -----
