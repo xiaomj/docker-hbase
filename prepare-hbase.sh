@@ -4,7 +4,7 @@
 
 yum update -y
 
-yum install $minimal_apt_get_args $HBASE_BUILD_PACKAGES $HBASE_BUILD_PACKAGES-devel
+yum install $minimal_apt_get_args $HBASE_BUILD_PACKAGES $HBASE_BUILD_PACKAGES
 
 cd /opt
 
